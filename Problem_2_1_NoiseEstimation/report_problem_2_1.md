@@ -4,6 +4,7 @@
 Estimate the noise variance in the provided captures using the MDL eigenvalue noise estimator from lecture and the Wireless Coexistence paper. The example channel is validated against the provided ground-truth noise power, and the same estimator is then applied to the six unknown channels.
 
 ## MDL Estimator Summary
+The MDL noise estimator reused here is the same implementation developed in Module 11.
 The estimator reshapes the capture into 10-sample observations, forms a sample covariance matrix, computes and sorts the covariance eigenvalues, and uses the MDL criterion to choose the signal-subspace dimension. The noise variance estimate is the mean of the trailing eigenvalues beyond the selected signal subspace.
 
 ## Example Channel Validation
