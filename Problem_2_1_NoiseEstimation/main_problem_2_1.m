@@ -50,6 +50,15 @@ for channel_idx = 1:num_channels
     channel_results(channel_idx).timeslot_energy = channel_timeslot_energy;
 end
 
+% Collect all channel timeslot energies into one matrix.
+% Rows = timeslots, Columns = channels
+num_timeslots = length(channel_results(1).timeslot_energy);
+all_channel_energies = zeros(num_timeslots, num_channels);
+
+for channel_idx = 1:num_channels
+    all_channel_energies(:, channel_idx) = channel_results(channel_idx).timeslot_energy;
+end
+
 results = struct();
 results.example_channel = struct( ...
     'noise_variance_estimate', example_noise_estimate, ...
@@ -59,6 +68,7 @@ results.example_channel = struct( ...
     'mdl', example_mdl, ...
     'timeslot_energy', example_timeslot_energy);
 results.channels = channel_results;
+results.all_channel_timeslot_energy = all_channel_energies;
 results.metadata = struct( ...
     'samples_per_timeslot', samples_per_timeslot, ...
     'mdl_observation_length', mdl_observation_length);
