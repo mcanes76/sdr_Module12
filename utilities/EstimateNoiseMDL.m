@@ -1,6 +1,9 @@
-function [noise_estimate, estimate_info] = EstimateNoiseMDL(captured_data)
+function [noise_estimate, estimate_info] = EstimateNoiseMDL(captured_data, num_samples_per_observation)
 
-num_samples_per_observation = 64;
+if nargin < 2
+    num_samples_per_observation = 64;
+end
+
 captured_data = captured_data(:);
 
 num_observations = floor(length(captured_data) / num_samples_per_observation);
