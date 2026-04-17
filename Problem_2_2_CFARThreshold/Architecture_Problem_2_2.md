@@ -39,7 +39,7 @@ Recommended new helper:
 
 The detector statistic should be the summed timeslot energy over 10 complex samples:
 
-$T = sum_{n=1}^{10} |x[n]|^2$
+$T = \sum_{n=1}^{10} |x[n]|^2$
 
 Recommended convention:
 - Use summed energy, not average energy.
@@ -56,19 +56,19 @@ If average energy were used instead, the threshold would just be the summed-ener
 
 Under noise-only conditions, each complex sample can be written as:
 
-`w = w_I + j w_Q`
+$w = w_I + j w_Q$
 
 where `w_I` and `w_Q` are independent zero-mean Gaussian random variables. If the total complex noise variance per sample is `sigma2`, then each real component has variance:
 
-`var(w_I) = var(w_Q) = sigma2 / 2`
+$var(w_I) = var(w_Q) = \sigma^2 / 2$
 
 For one complex sample:
 
-`|w|^2 = w_I^2 + w_Q^2`
+$|w|^2 = w_I^2 + w_Q^2$
 
 For a timeslot of length `N = 10`, the summed energy statistic is:
 
-$T = sum_{n=1}^{N} |w[n]|^2$
+$T = \sum_{n=1}^{N} |w[n]|^2$
 
 After normalizing by the real-component variance, the statistic maps to a chi-square law with `2N` degrees of freedom because there are two independent Gaussian components per complex sample. Equivalently, `T` can be viewed as gamma-distributed with shape `N` and scale `sigma2`.
 
@@ -79,11 +79,11 @@ Recommended interpretation for implementation:
 
 Then the threshold `lambda` is chosen so that:
 
-`P(T > lambda | H0) = Pfa = 0.05`
+$P(T > \lambda | H0) = P_{fa} = 0.05$
 
 Equivalently:
 
-`lambda = gaminv(1 - Pfa, N, sigma2)`
+$\lambda = gaminv(1 - P_{fa}, N, \sigma^2)$
 
 This is the same statement as using the upper-tail chi-square relationship after the correct complex-noise scaling is applied.
 
