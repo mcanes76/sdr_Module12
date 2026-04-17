@@ -1,0 +1,23 @@
+# MATLAB generated data
+*_results.mat
+
+# MATLAB autosave / temp files
+*.asv
+*.autosave
+
+# MATLAB compiled artifacts
+*.mex*
+*.p
+*.slxc
+
+# Figures and temporary plots
+*.fig
+*.png
+*.jpg
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# VS Code settings (optional)
+.vscode/
