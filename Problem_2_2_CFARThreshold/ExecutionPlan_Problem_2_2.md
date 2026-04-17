@@ -10,12 +10,13 @@ Recommended build sequence:
 
 1. Inspect the saved Problem 2.1 outputs and identify the exact fields that hold noise variance estimates and timeslot energies.
 2. Lock the detector statistic convention before writing any threshold code.
-3. Verify the threshold formula convention for complex noise with measurement length 10 and target `Pfa = 0.05`.
+3. Verify the threshold formula convention for complex noise with measurement length 10 and fixed assignment value `target_pfa = 0.05`.
 4. Compute the example threshold first.
-5. Validate the example threshold against `example_cfa_threshold`.
-6. Compute thresholds for the six unknown channels.
-7. Save results in a compact `.mat` file.
-8. Generate a short markdown report from the saved results.
+5. Validate that the achieved false alarm probability falls within 0.049 to 0.051.
+6. Check the example threshold against `example_cfa_threshold` as a secondary consistency check.
+7. Compute thresholds for the six unknown channels.
+8. Save results in a compact `.mat` file.
+9. Generate a short markdown report from the saved results.
 
 The key decision early on is the statistic convention:
 - Use summed timeslot energy over 10 samples.
@@ -33,6 +34,7 @@ Expected outcome:
 - exact field names are known
 - the required example truth values are identified
 - the saved timeslot energy format is understood
+- the implementation plan assumes `target_pfa = 0.05` unless a dataset field is explicitly confirmed later
 
 ### Milestone 2: Lock the detector statistic convention
 
@@ -41,6 +43,7 @@ Decide and document:
 - timeslot length = 10
 - noise variance is treated as per complex sample
 - threshold comes from the gamma / chi-square upper-tail model under `H0`
+- planned threshold formula metadata is `gaminv(1-target_pfa,N,sigma2_hat)`
 
 Expected outcome:
 - no scaling ambiguity remains before implementation starts
@@ -57,10 +60,11 @@ Expected outcome:
 ### Milestone 4: Example-channel validation
 
 Use the example noise variance estimate from Problem 2.1 to compute the threshold, then compare against `example_cfa_threshold`.
+Use the example noise variance estimate from Problem 2.1 to compute the threshold, then check the achieved `Pfa` under the same model.
 
 Expected outcome:
-- threshold agreement is quantified
-- back-computed false alarm probability is checked to be near 0.05
+- achieved `Pfa` is confirmed to lie within 0.049 to 0.051
+- threshold agreement with `example_cfa_threshold` is quantified as a secondary check
 
 ### Milestone 5: Six-channel threshold generation
 
@@ -92,7 +96,7 @@ Review Gate B:
 
 Review Gate C:
 - After matching the example threshold formula
-- Confirm that the chosen gamma / chi-square scaling is correct before applying it to all channels
+- Confirm that the chosen gamma / chi-square scaling produces achieved `Pfa` inside 0.049 to 0.051 before applying it to all channels
 
 Review Gate D:
 - After six-channel thresholds are computed
@@ -124,11 +128,13 @@ Expected saved fields:
 - `results.metadata.samples_per_timeslot`
 - `results.metadata.measurement_length`
 - `results.metadata.target_pfa`
+- `results.metadata.threshold_formula`
 - `results.metadata.statistic_definition`
 - `results.metadata.noise_variance_convention`
 - `results.metadata.distribution_model`
 
 Helpful metadata text:
+- `gaminv(1-target_pfa,N,sigma2_hat)`
 - `summed_timeslot_energy`
 - `per_complex_sample_variance`
 - `gamma_equivalent_to_scaled_chi_square`

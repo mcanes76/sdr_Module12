@@ -14,9 +14,11 @@ Problem 2.2 then feeds later work in two directions:
 
 Inputs from the homework dataset in `data/hw12_test_data.mat`:
 - `example_cfa_threshold`
-- `desired_probability_of_false_alarm`
 - `example_channel_samples` only if needed for checking consistency with saved timeslot energies
 - `channelized_samples` only if needed for bookkeeping or optional checks
+
+Default assignment value to use in Problem 2.2 planning:
+- `target_pfa = 0.05`
 
 Inputs from `Problem_2_1_NoiseEstimation/problem_2_1_results.mat`:
 - `results.example_channel.noise_variance_estimate`
@@ -129,10 +131,12 @@ Recommended Problem 2.2 flow:
 2. Load `data/hw12_test_data.mat`.
 3. Read `samples_per_timeslot = 10` from Problem 2.1 metadata and set `measurement_length = 10`.
 4. Read `target_pfa`, preferably from `desired_probability_of_false_alarm`, and confirm it equals 0.05.
+4. Set `target_pfa = 0.05`.
 5. Compute the example-channel threshold from the example noise variance estimate.
-6. Compare that threshold to `example_cfa_threshold`.
-7. Compute a threshold for each of the six unknown channels from its saved noise variance estimate.
-8. Save thresholds and validation metrics into `Problem_2_2_CFARThreshold/problem_2_2_results.mat`.
+6. Verify that the achieved false alarm probability under the same gamma / chi-square model falls within 0.049 to 0.051.
+7. Compare that threshold to `example_cfa_threshold` as a secondary consistency check.
+8. Compute a threshold for each of the six unknown channels from its saved noise variance estimate.
+9. Save thresholds and validation metrics into `Problem_2_2_CFARThreshold/problem_2_2_results.mat`.
 
 Results that should be saved for later problems:
 - Example threshold and validation metrics
@@ -155,27 +159,29 @@ Proposed saved structure in `Problem_2_2_CFARThreshold/problem_2_2_results.mat`:
 - `results.metadata.samples_per_timeslot`
 - `results.metadata.measurement_length`
 - `results.metadata.target_pfa`
+- `results.metadata.threshold_formula`
 - `results.metadata.statistic_definition`
 - `results.metadata.noise_variance_convention`
 - `results.metadata.distribution_model`
 
 Suggested metadata values:
+- `threshold_formula = 'gaminv(1-target_pfa,N,sigma2_hat)'`
 - `statistic_definition = 'summed_timeslot_energy'`
 - `noise_variance_convention = 'per_complex_sample_variance'`
 - `distribution_model = 'gamma_equivalent_to_scaled_chi_square'`
 
 ## 8. Validation Strategy
 
-The main validation target is the example-channel threshold:
+The main validation target is the achieved false alarm probability:
 - Compute the threshold using the example noise variance estimate from Problem 2.1.
-- Compare it against `example_cfa_threshold`.
+- Evaluate the achieved `Pfa` under the same gamma / chi-square model used to derive the threshold.
+- Confirm that the achieved `Pfa` falls within 0.049 to 0.051.
 
-The homework statement "solve for a threshold within 0.049 and 0.051" should be interpreted as:
-- The achieved false alarm probability under the chosen threshold formula should land inside that interval.
-- In practice, since the dataset provides `example_cfa_threshold`, the first useful check is whether the computed threshold matches that known answer closely.
+Threshold agreement with `example_cfa_threshold` is still useful, but it is a secondary validation check. The primary requirement is that the achieved `Pfa` lands inside the allowed interval under the same model assumptions.
 
 Recommended practical checks:
-- Verify the threshold formula gives `Pfa` close to 0.05 when evaluated back through the same gamma / chi-square model.
+- Verify the threshold formula gives achieved `Pfa` inside 0.049 to 0.051 when evaluated back through the same gamma / chi-square model.
+- Check that the example threshold is reasonably close to `example_cfa_threshold`.
 - Check that all six thresholds are positive.
 - Check that thresholds generally increase with estimated noise variance.
 - Check that no threshold is wildly inconsistent with the corresponding channel noise estimate.
@@ -196,12 +202,13 @@ Main ambiguities to settle before coding:
 - Whether the detector statistic is summed energy or average energy
 - Whether the Problem 2.1 noise estimate should be interpreted as variance per complex sample
 - Whether the implementation should use a gamma inverse CDF or an equivalent chi-square expression
-- Whether validation should be based mainly on threshold agreement with `example_cfa_threshold`, back-computed `Pfa`, or both
+- How closely the example threshold should match `example_cfa_threshold` once the achieved `Pfa` requirement is already satisfied
 
 What should be verified before coding:
 - Confirm the summed-energy convention is used everywhere in Module 12.
 - Confirm `example_cfa_threshold` is expressed for the same statistic convention.
 - Confirm the threshold formula uses `measurement_length = 10`.
+- Confirm validation is centered on achieved `Pfa` in the interval 0.049 to 0.051.
 - Confirm the saved timeslot energies from Problem 2.1 are also summed energies over 10 samples.
 
 Small recommendation for the next step:
