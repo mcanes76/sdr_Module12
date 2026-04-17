@@ -29,9 +29,10 @@ example_decisions = run_energy_detector(example_timeslot_energy, example_thresho
 example_percent_occupied = 100 * mean(example_decisions);
 example_percent_idle = 100 * mean(~example_decisions);
 
-% compare the example decisions to the truth sequence
-% the dataset uses state labels 1 and 2, so treat the higher label as the
-% occupied state before comparing against the detector decisions
+% The example truth sequence uses two state labels.
+% For this dataset we treat the larger label as "occupied" so that
+% the detector decisions (1 = occupied, 0 = idle) can be compared
+% directly against the truth sequence.
 example_truth_occupied = example_truth_sequence == max(example_truth_sequence);
 example_percent_agreement = 100 * mean(example_decisions == example_truth_occupied);
 
