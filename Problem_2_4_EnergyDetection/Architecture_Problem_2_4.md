@@ -51,7 +51,7 @@ Detector statistic:
 The saved timeslot_energy values from Problem 2.1 already represent the summed energy over each 10-sample timeslot, so no additional windowing or summation is required in Problem 2.4.
 
 Decision rule:
-- occupied if `timeslot_energy > threshold`
+- occupied if `timeslot_energy > threshold -> occupied`
 - idle otherwise
 
 This must match the conventions established in Problems 2.1 and 2.2:
