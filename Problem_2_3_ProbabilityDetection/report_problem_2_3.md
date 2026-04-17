@@ -5,14 +5,20 @@ This step computes the theoretical probability of detection for the energy detec
 
 ## Equations Used
 The Marcum-Q formulation from the assignment was used:
-`P_D = Q_K(sqrt(Es)/sigma_n, sqrt(eta)/sigma_n)`
-`P_MD = 1 - P_D`
+$$
+P_D = Q_K(\sqrt{E_s}/\sigma_n, \sqrt{\eta}/\sigma_n)
+$$
+$$
+P_{MD} = 1 - P_D
+$$
 
 ## Parameters
 - `K = 10` complex samples per measurement
 - `Es = K * signal_power = 10` with `signal_power = 1`
 - `sigma_n^2` came from Problem 2.1
 - `eta` came from Problem 2.2
+
+Because the signal power is unity and each measurement consists of K=10 samples, the total signal energy used in the Marcum-Q expression is $E_s = 10$.
 
 ## Computed P_D Values
 | Channel | Noise Variance | Threshold | P_D |
