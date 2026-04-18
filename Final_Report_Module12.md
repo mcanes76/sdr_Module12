@@ -157,7 +157,11 @@ Problem 2.4 applied the saved thresholds from Problem 2.2 to the saved timeslot 
 The detector rule was just a direct threshold test:
 
 $$
-T \gtrless \lambda
+T > \lambda \quad \text{(decide occupied)}
+$$
+
+$$
+T \le \lambda \quad \text{(decide idle)}
 $$
 
 or more explicitly,
