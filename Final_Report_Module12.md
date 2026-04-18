@@ -229,10 +229,10 @@ The emission matrix had the form
 
 $$
 B =
-\begin{bmatrix}
+\begin{array}{cc}
 P(O=\text{idle}\mid S=\text{idle}) & P(O=\text{occ}\mid S=\text{idle}) \\
 P(O=\text{idle}\mid S=\text{occ}) & P(O=\text{occ}\mid S=\text{occ})
-\end{bmatrix}
+\end{array}
 $$
 
 Conceptually, this ties back to earlier problems:
