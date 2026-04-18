@@ -322,9 +322,9 @@ For the two-state chain with
 
 $$
 A =
-\begin{bmatrix}
+\begin{bmatrix}[
 1-a & a \\
-b & 1-b
+b & 1-b]
 \end{bmatrix}
 $$
 
