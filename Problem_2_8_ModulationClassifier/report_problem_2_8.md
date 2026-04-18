@@ -30,6 +30,8 @@ Evaluate the pretrained CNN modulation classifier on BPSK-only inputs as a funct
 
 ![Pre-trained Modulation Classifier Accuracy vs SNR (BPSK)](accuracy_vs_snr.png)
 
+From looking at the curve, the decision threshold would be around 6.5 dB.
+
 ### Example Constellation Density Plots
 ![BPSK Constellation at SNR 10 dB](bpsk_constellation_snr10.png)
 ![BPSK Constellation at SNR 7 dB](bpsk_constellation_snr7.png)
@@ -38,6 +40,8 @@ Evaluate the pretrained CNN modulation classifier on BPSK-only inputs as a funct
 
 ## Interpretation
 Accuracy decreases as SNR decreases because noise obscures the BPSK structure in the I/Q samples, which makes the constellation clusters harder for the classifier to separate.
+The accuracy curve exhibits a threshold behavior typical of digital modulation classification, where performance remains near-perfect above a certain SNR but rapidly degrades once noise causes the constellation clusters to overlap.
+The CNN classifier accuracy decreases much faster than the theoretical performance of a classical BPSK detector. This occurs because the CNN must infer the modulation type without prior knowledge, whereas an optimal BPSK receiver only needs to determine the sign of the received symbol. As noise increases, the constellation structure becomes ambiguous and can resemble other modulation formats, causing the classifier accuracy to collapse at lower SNR.
 
 ## Improvement Ideas
 - train or fine-tune with more low-SNR BPSK examples
