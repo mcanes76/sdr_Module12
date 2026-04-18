@@ -13,6 +13,8 @@ The predicted steady-state percentages are very close to the truth-derived perce
 | Observed | 63.1485 | 36.8515 |
 | Truth | 66.4917 | 33.5083 |
 
+The predicted percentages from the limiting distribution are slightly different from the percentages obtained by directly observing energy in Problem 2.4. This occurs because the energy detector can produce false alarms and missed detections, which affect the observed occupancy counts. In addition, the limiting distribution represents the long-term steady-state behavior of the Markov model, while the observed percentages are computed from a finite observation window. As a result, small differences between the predicted and observed percentages are expected.
+
 ## Six Channel Predictions
 | Channel | Predicted Idle % | Predicted Occupied % | Observed Idle % | Observed Occupied % |
 | --- | ---: | ---: | ---: | ---: |
