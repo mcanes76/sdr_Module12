@@ -59,7 +59,7 @@ for snr_idx = 1:num_snr_points
     if any(abs(current_snr_db - constellation_snr_values) < eps)
         % Show how the I/Q cloud spreads out as SNR drops.
         rxd_signal = bpsk_signal + noise_vector;
-        fig = figure('Visible', 'off');
+        fig = figure('Visible', 'on');
         histogram2(real(rxd_signal), imag(rxd_signal), 'FaceColor', 'flat');
         title(sprintf('BPSK Constellation at SNR %.0f dB', current_snr_db));
         xlabel('Real');
@@ -67,19 +67,19 @@ for snr_idx = 1:num_snr_points
         zlabel('Occurrence');
         plot_path = fullfile(script_dir, sprintf('bpsk_constellation_snr%.0f.png', current_snr_db));
         exportgraphics(fig, plot_path, 'Resolution', 150);
-        close(fig);
+        %close(fig);
         constellation_plot_paths(constellation_snr_values == current_snr_db) = string(plot_path);
     end
 end
 
-accuracy_fig = figure('Visible', 'off');
+accuracy_fig = figure('Visible', 'on');
 plot(snr_db, accuracy, 'o-', 'LineWidth', 1.5, 'MarkerSize', 6);
 grid on;
 xlabel('SNR (dB)');
 ylabel('Accuracy');
 title('Pre-trained Modulation Classifier Accuracy vs SNR (BPSK)');
 exportgraphics(accuracy_fig, accuracy_plot_path, 'Resolution', 150);
-close(accuracy_fig);
+%close(accuracy_fig);
 
 results = struct();
 results.snr_db = snr_db;

@@ -43,7 +43,7 @@ end
 plot_channel_count = num_channels;
 plot_channel_indices = 1:plot_channel_count;
 
-fig = figure('Visible', 'off');
+fig = figure('Visible', 'on');
 bar(plot_channel_indices, Pd_values(plot_channel_indices));
 title('Energy Detector Probability of Detection');
 xlabel('Channel');
@@ -52,7 +52,7 @@ xticks(plot_channel_indices);
 ylim([0 1]);
 grid on;
 exportgraphics(fig, plot_path, 'Resolution', 150);
-close(fig);
+%close(fig);
 
 save(results_path, 'Pd_values', 'eta', 'sigma_n', 'K', 'Es', 'plot_channel_indices');
 

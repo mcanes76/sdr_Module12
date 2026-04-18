@@ -82,7 +82,7 @@ end
 
 % The Markov curve decays exponentially in k because every extra idle slot
 % adds one more factor of P11 after the first idle slot is chosen by pi_idle.
-example_fig = figure('Visible', 'off');
+example_fig = figure('Visible', 'on');
 plot(k_values, example_observed_probability_curve, 'o-', 'LineWidth', 1.5, 'DisplayName', 'Observed');
 hold on;
 plot(k_values, example_predicted_probability_curve, 's-', 'LineWidth', 1.5, 'DisplayName', 'Markov Prediction');
@@ -92,9 +92,9 @@ ylabel('Probability of k consecutive idle slots');
 title('Example Channel Idle-Run Probability: Observed vs Markov Prediction');
 legend('Location', 'northeast');
 exportgraphics(example_fig, example_plot_path, 'Resolution', 150);
-close(example_fig);
+%close(example_fig);
 
-predicted_fig = figure('Visible', 'off');
+predicted_fig = figure('Visible', 'on');
 plot(k_values, all_predicted_curves.', 'LineWidth', 1.5);
 grid on;
 xlabel('Run length k');
@@ -102,7 +102,7 @@ ylabel('Predicted probability of k consecutive idle slots');
 title('Predicted Idle-Run Probability by Channel');
 legend(compose('Channel %d', 1:num_channels), 'Location', 'northeast');
 exportgraphics(predicted_fig, predicted_plot_path, 'Resolution', 150);
-close(predicted_fig);
+%close(predicted_fig);
 
 results = struct();
 results.example_channel = struct( ...
