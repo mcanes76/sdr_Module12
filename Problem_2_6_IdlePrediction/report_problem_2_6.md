@@ -5,7 +5,7 @@ The limiting distribution gives the long-term fraction of time that the two-stat
 For this homework, the steady-state probabilities were computed from the Problem 2.5 transition matrices using the two-state closed-form formula.
 
 ## Example Channel Results
-The predicted steady-state percentages are very close to the truth-derived percentages, indicating that the HMM transition matrix estimated in Problem 2.5 provides an accurate model of the channel dynamics.
+The predicted steady-state percentages are very close to the truth-derived percentages, indicating that the HMM transition matrix estimated in Problem 2.5 provides an accurate model of the channel dynamics. The Example Channel is the only dataset with known ground-truth states, allowing the detection and HMM modeling algorithms to be validated before applying them to the unknown channels.
 
 | Quantity | Idle % | Occupied % |
 | --- | ---: | ---: |
