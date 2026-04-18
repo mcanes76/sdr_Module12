@@ -85,9 +85,9 @@ end
 end
 
 function observed_probability_4_idle = compute_observed_probability(decisions, window_length)
-% Use every overlapping window of length 4, not disjoint runs.
-% Keeping the vector as a row makes the conv output shape predictable.
-idle_flags = double(decisions(:).' == 0);
-window_idle_counts = conv(idle_flags, ones(1, window_length), 'valid');
-observed_probability_4_idle = mean(window_idle_counts == window_length);
+    % Use every overlapping window of length 4, not disjoint runs.
+    % Keeping the vector as a row makes the conv output shape predictable.
+    idle_flags = double(decisions(:).' == 0);
+    window_idle_counts = conv(idle_flags, ones(1, window_length), 'valid');
+    observed_probability_4_idle = mean(window_idle_counts == window_length);
 end
