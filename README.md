@@ -88,3 +88,5 @@ The live-lab classifier files used by Problem 2.8 are:
 Lab12_files/TestData.mat
 Lab12_files/trainedModulationClassificationNetwork.mat
 ```
+
+These MATLAB `.mat` files are large and may not be included in the submitted hand-in package. Before running the scripts, make sure the required data files are present in the paths shown above.
