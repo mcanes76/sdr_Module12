@@ -34,7 +34,7 @@ Looking at the full run-length curve gives a broader picture than only the `k = 
 | 6 | 0.66958632 | 0.55904692 | 0.11053939 |
 
 ## Why They May Differ
-The observation-based probability comes from a finite detector output sequence, while the Markov-model probability comes from a steady-state chain approximation.
+Yes, the two probabilities are different for some channels and run lengths. The observation-based probability comes from a finite detector output sequence, while the Markov-model probability comes from a steady-state chain approximation.
 Differences can come from detector errors, HMM estimation through observations instead of hidden states, finite sample length, and mismatch between steady-state behavior and the measured sequence.
 Quiet channels should usually have larger idle-run probabilities across `k`, and both curves should decay as `k` increases.
-
+In the example channel, the Markov-model prediction for k=4 is higher than the observation-based result, showing that the steady-state model does not exactly match the finite detector sequence.
